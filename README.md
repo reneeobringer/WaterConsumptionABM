@@ -19,3 +19,4 @@ The model runs best in the headless form of NetLogo, as it requires substantial 
 add commands
 ```
 
+Finally, there is an `R script` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis.
