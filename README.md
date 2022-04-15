@@ -24,7 +24,7 @@ scp -r WaterConsumptionABM-main [remote machine address]:[remote machine path]
 Then, run `jobscript.sh`:
 
 ```shell
-sbatch jobscript.sh
+sbatch jobscript.sh --partition=[your partition here] --nodes=2
 ```
 
 Finally, there is an `R script` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis.
