@@ -29,4 +29,4 @@ sbatch jobscript.sh --partition=[your partition here] --nodes=2
 
 **will need to update to specify any changes needed in jobscript.sh**
 
-Finally, there is an `R script` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis.
+Finally, there is an `R script` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis, as well as the post-processing and plotting of the modeled data.
