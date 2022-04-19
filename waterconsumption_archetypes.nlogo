@@ -6,6 +6,7 @@ globals [
 
   ; actual data:
   act-precip act-inflow act-evap act-water-use act-storage-mem act-losses
+  variable-table clim-se-table clim-se-list storage
 
   ; modeled variables:
   mod-storage-mem mod-storage prev-storage
@@ -16,8 +17,8 @@ globals [
   ; for time-keeping:
   tick-day month
 
-  ; miscellaneous:
-  variable-table clim-se-table clim-se-list storage
+  ; for scenarios and archetypes
+  scenario arch-prob
 ]
 
 turtles-own [ archetype consumption ] ; each turtle is assigned an archetype + a water consumption value
@@ -42,15 +43,15 @@ to setup
   set act-storage-mem []
   set mod-storage-mem []
   set differences []
+  set scenario "all-changes" ; scenario options: "base", "partial-part", "part", "indiv", "concern", "all-changes"
   create-turtles 4000 [
-    let arch-prob random-float 100.0 ; set archetype probability
-    (ifelse arch-prob <= 19.4 [ set archetype 1 ] ; set archetype based on previously determined proportions (Obringer and White, under review)
-      arch-prob > 19.4 and arch-prob <= 38.5 [ set archetype 2 ]
-      arch-prob > 38.5 and arch-prob <= 63.1 [ set archetype 3 ]
-      arch-prob > 63.1 and arch-prob <= 76.4 [ set archetype 4 ]
-      arch-prob > 76.4 and arch-prob <= 94.8 [ set archetype 5 ]
-      arch-prob > 94.8 and arch-prob <= 98.7 [ set archetype 6 ]
-      arch-prob > 98.7 [ set archetype 7 ]
+    set arch-prob random-float 100.0 ; set archetype probability
+    (ifelse scenario = "base" [ get-base-scenario-probs ]
+      scenario = "partial-part" [ get-partial-part-scenario-probs ]
+      scenario = "part" [ get-part-scenario-probs ]
+      scenario = "indiv" [ get-indiv-scenario-probs ]
+      scenario = "concern" [ get-concern-scenario-probs ]
+      scenario = "all-changes" [ get-all-changes-scenario-probs ]
     )
   ]
   ;get-water-distributions ; calculate water use distributions based on archetypes
@@ -149,6 +150,66 @@ to use-water-summer
     archetype = 6 [ set consumption random-gamma 3.289019202043 0.000001672276 / count turtles ]
     archetype = 7 [ set consumption random-gamma 3.26212298572 0.00000170704 / count turtles ]
   )
+end
+
+to get-base-scenario-probs ; baseline scenario
+        (ifelse arch-prob <= 19.4 [ set archetype 1 ] ; set archetype based on previously determined proportions (Obringer and White, under review)
+          arch-prob > 19.4 and arch-prob <= 38.5 [ set archetype 2 ]
+          arch-prob > 38.5 and arch-prob <= 63.1 [ set archetype 3 ]
+          arch-prob > 63.1 and arch-prob <= 76.4 [ set archetype 4 ]
+          arch-prob > 76.4 and arch-prob <= 94.8 [ set archetype 5 ]
+          arch-prob > 94.8 and arch-prob <= 98.7 [ set archetype 6 ]
+          arch-prob > 98.7 [ set archetype 7 ]
+        )
+end
+
+to get-partial-part-scenario-probs ; scenario in which some intervention is implemented and 50% of archetype 3 move to archetype 5
+        (ifelse arch-prob <= 19.4 [ set archetype 1 ]
+          arch-prob > 19.4 and arch-prob <= 38.5 [ set archetype 2 ]
+          arch-prob > 38.5 and arch-prob <= 50.8 [ set archetype 3 ]
+          arch-prob > 50.8 and arch-prob <= 64.1 [ set archetype 4 ]
+          arch-prob > 64.1 and arch-prob <= 94.8 [ set archetype 5 ]
+          arch-prob > 94.8 and arch-prob <= 98.7 [ set archetype 6 ]
+          arch-prob > 98.7 [ set archetype 7 ]
+        )
+end
+
+to get-part-scenario-probs ; scenario in which some intervention is implemented and 100% of archetype 3 move to archetype 5
+        (ifelse arch-prob <= 19.4 [ set archetype 1 ]
+          arch-prob > 19.4 and arch-prob <= 38.5 [ set archetype 2 ]
+          arch-prob > 38.5 and arch-prob <= 51.8 [ set archetype 4 ]
+          arch-prob > 51.8 and arch-prob <= 94.8 [ set archetype 5 ]
+          arch-prob > 94.8 and arch-prob <= 98.7 [ set archetype 6 ]
+          arch-prob > 98.7 [ set archetype 7 ]
+        )
+end
+
+to get-indiv-scenario-probs ; scenario in which some intervention is implemented and 100% of archetype 6 move to archetype 2
+        (ifelse arch-prob <= 19.4 [ set archetype 1 ]
+          arch-prob > 19.4 and arch-prob <= 42.4 [ set archetype 2 ]
+          arch-prob > 42.4 and arch-prob <= 67.0 [ set archetype 3 ]
+          arch-prob > 67.0 and arch-prob <= 80.3 [ set archetype 4 ]
+          arch-prob > 80.3 and arch-prob <= 98.7 [ set archetype 5 ]
+          arch-prob > 98.7 [ set archetype 7 ]
+        )
+end
+
+to get-concern-scenario-probs ; scenario in which some intervention is implemented and 100% of archtype 7 move to archetype 4
+        (ifelse arch-prob <= 19.4 [ set archetype 1 ]
+          arch-prob > 19.4 and arch-prob <= 38.5 [ set archetype 2 ]
+          arch-prob > 38.5 and arch-prob <= 63.1 [ set archetype 3 ]
+          arch-prob > 63.1 and arch-prob <= 77.7 [ set archetype 4 ]
+          arch-prob > 77.7 and arch-prob <= 96.1 [ set archetype 5 ]
+          arch-prob > 96.1 [ set archetype 6 ]
+        )
+end
+
+to get-all-changes-scenario-probs ; scenario in which all of the above interventions are applied (100% 3 --> 5, 100% 6 --> 2, and 100% 7 --> 4)
+   (ifelse arch-prob <= 19.4 [ set archetype 1 ]
+          arch-prob > 19.4 and arch-prob <= 42.4 [ set archetype 2 ]
+          arch-prob > 14.6 and arch-prob <= 57.0 [ set archetype 4 ]
+          arch-prob > 57.0 [ set archetype 5 ]
+        )
 end
 
 to daily-storage
@@ -708,17 +769,11 @@ NetLogo 6.2.2
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="multi-run" repetitions="100" runMetricsEveryStep="false">
+  <experiment name="multi-run" repetitions="100" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="3501"/>
-    <metric>nrmse</metric>
-  </experiment>
-  <experiment name="single-run" repetitions="1" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="3501"/>
-    <metric>nrmse</metric>
+    <metric>mod-storage</metric>
   </experiment>
 </experiments>
 @#$#@#$#@
