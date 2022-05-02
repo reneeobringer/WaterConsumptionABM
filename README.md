@@ -1,6 +1,6 @@
 # WaterConsumptionABM
 
-This is the reposotroty for the data and code associated with an agent-based model (ABM) that models water consumption in Phoenix, Arizona. The resutls obtained through this work are under review: 
+This is the repository for the data and code associated with an agent-based model (ABM) that models water consumption in Phoenix, Arizona. The resutls obtained through this work are under review: 
 
 **Add the citation here**
 
