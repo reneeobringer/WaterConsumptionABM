@@ -1,8 +1,6 @@
 # WaterConsumptionABM
 
-This is the repository for the data and code associated with an agent-based model (ABM) that models water consumption in Phoenix, Arizona. The resutls obtained through this work are under review: 
-
-**Add the citation here**
+This is the repository for the data and code associated with an agent-based model (ABM) that models water consumption in Phoenix, Arizona. The results obtained through this work are currently in preparation for submission to a peer-reviewed journal.
 
 The ABM was developed in NetLogo (v6.2.2) and was last run on 05 May 2022. Running the NetLogo code requires several extensions: 
 
@@ -13,7 +11,7 @@ The ABM was developed in NetLogo (v6.2.2) and was last run on 05 May 2022. Runni
 
 Additionally, there are two csv files that are required as inputs, which can be found in the `inputData` folder.
 
-The model runs best in the headless form of NetLogo, as it requires substantial computational resources. This code was developed on a Linux server using the SLURM workload manager. Users working in different systems or with different workload managers may need to adapt the code to meet their system requirements (see https://slurm.schedmd.com/rosetta.html for a guide for translating between SLURM and other workload managers). To run the code on a remote system, we recommend the following code. 
+The model runs best in the headless form of NetLogo, as it requires substantial computational resources. The code was developed on a Linux server using the SLURM workload manager. Users working in different systems or with different workload managers may need to adapt the code to meet their system requirements (see https://slurm.schedmd.com/rosetta.html for a guide for translating between SLURM and other workload managers). To run the code on a remote system, we recommend the following code. 
 
 First, copy the data over to the remove machine:
 
