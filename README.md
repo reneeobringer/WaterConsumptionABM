@@ -35,6 +35,4 @@ sbatch --partition=[your partition here] --output=jobscript.out --time=7-00:00:0
 
 Note that the code is set up to run 100 experiments with six different scenarios, for a total of 600 model runs. We ran the code with one high memory node (40 CPUs) and it took just over 5 days to complete all 600 runs. 
 
-Finally, there is an `R script` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis, as well as the post-processing and plotting of the modeled data.
-
-**will need to update the r code to separate out the archetypes, clean it up, and make it reproducible**
+Finally, there is an `ABM_supplementalcalc.R` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis, as well as the post-processing and plotting of the modeled data. This file does not need to be run in order run the NetLogo script, but can be used as a reference for the inputs, as well as viewing code for plotting figures. To run this script, users will need to update the `path` variable to the downloaded or cloned respository. Additionally, the code can be run sequentially, or individual sections can be reun separately, if users load the r data files prior to running. These files are located in the `rdatafiles` folder. 
