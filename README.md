@@ -4,7 +4,7 @@ This is the repository for the data and code associated with an agent-based mode
 
 **Add the citation here**
 
-The ABM was developed in NetLogo (v6.2.2) and was last run on **Add date**. Running the NetLogo code requires several extensions: 
+The ABM was developed in NetLogo (v6.2.2) and was last run on 05 May 2022. Running the NetLogo code requires several extensions: 
 
 *  array
 *  csv
@@ -13,21 +13,29 @@ The ABM was developed in NetLogo (v6.2.2) and was last run on **Add date**. Runn
 
 Additionally, there are two csv files that are required as inputs, which can be found in the `inputData` folder.
 
-The model runs best in the headless form of NetLogo, as it requires substantial computational resources. To run this code, we recommend the following commands. Note this code was developed for a Linux server using the SLURM workload manager. Users working in different systems or with different workload managers may need to adapt the code to meet their system requirements (see https://slurm.schedmd.com/rosetta.html for a guide for translating between SLURM and other wotkload managers). To run the code on a remote system, we recommend the following code. 
+The model runs best in the headless form of NetLogo, as it requires substantial computational resources. This code was developed on a Linux server using the SLURM workload manager. Users working in different systems or with different workload managers may need to adapt the code to meet their system requirements (see https://slurm.schedmd.com/rosetta.html for a guide for translating between SLURM and other workload managers). To run the code on a remote system, we recommend the following code. 
 
 First, copy the data over to the remove machine:
 
 ```shell
-scp -r WaterConsumptionABM-main [remote machine address]:[remote machine path]
+scp -r WaterConsumptionABM [remote machine address]:[remote machine path]
 ```
 
-Then, run `jobscript.sh`:
+Or, use git commands directly on the remote machine: 
 
 ```shell
-sbatch --partition=[your partition here] --nodes=2 --output=jobscript.out --time=10-00:00:00 jobscript.sh
+git clone https://github.com/reneeobringer/WaterConsumptionABM
 ```
 
+Once the repository is loaded on the remote machine, run `jobscript.sh`:
+
 **will need to update to specify any changes needed in jobscript.sh**
+
+```shell
+sbatch --partition=[your partition here] --output=jobscript.out --time=7-00:00:00 jobscript.sh
+```
+
+Note that the code is set up to run 100 experiments with six different scenarios, for a total of 600 model runs. We ran the code with one high memory node (40 CPUs) and it took just over 5 days to complete all 600 runs. 
 
 Finally, there is an `R script` associated with the NetLogo script that contains the calculations of the paramters for various distributions used in this analysis, as well as the post-processing and plotting of the modeled data.
 
