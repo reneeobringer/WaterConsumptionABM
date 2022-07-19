@@ -44,7 +44,7 @@ to setup
   set mod-storage-mem []
   set differences []
   ;set scenario "all-changes" ; scenario options: "base", "partial-part", "part", "indiv", "concern", "all-changes"
-  create-turtles 4000 [
+  create-turtles 400000 [
     set arch-prob random-float 100.0 ; set archetype probability
     assign-archetypes
   ]
