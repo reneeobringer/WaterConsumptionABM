@@ -2,7 +2,7 @@
 
 This is the repository for the data and code associated with an agent-based model (ABM) that models water consumption in Phoenix, Arizona. The results obtained through this work are currently in preparation for submission to _Environmental Modelling and Software_.
 
-The ABM was developed in NetLogo (v6.2.2) and was last run on 05 May 2022. Running the NetLogo code requires several extensions: 
+The ABM was developed in NetLogo (v6.2.2) and was last run on 11 August 2022. Running the NetLogo code requires several extensions: 
 
 *  array
 *  csv
