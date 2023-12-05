@@ -2,6 +2,8 @@
 
 This is the repository for the data and code associated with an agent-based model (ABM) that models water consumption in Phoenix, Arizona. The results obtained through this work are currently under review.
 
+A permanent version of this repository is available on Zenodo: [![DOI](https://zenodo.org/badge/481630249.svg)](https://zenodo.org/doi/10.5281/zenodo.10262261).
+
 The ABM was developed in NetLogo (v6.2.2) and was last run on 11 August 2022. Running the NetLogo code requires several extensions: 
 
 *  array
